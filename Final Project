@@ -1,0 +1,105 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+string encryptVigenere(const string& message, const string& key) {
+	string encryptedMessage;
+	int messageLength = message.length();
+	int keyLength = key.length();
+
+	for (int i = 0; i < messageLength; ++i) {
+		char currentChar = message[i];
+		char keyChar = key[i % keyLength]; // Repeating key characters
+
+		// Encrypt uppercase letters
+		if (isupper(currentChar)) {
+			char encryptedChar = (currentChar + keyChar - 2 * 'A') % 26 + 'A';
+			encryptedMessage += encryptedChar;
+		}
+		else {
+			encryptedMessage += currentChar;
+		}
+	}
+	return encryptedMessage;
+}
+
+string decryptVigenere(const string& cipher, const string& key) {
+	string decryptedMessage;
+	int cipherLength = cipher.length();
+	int keyLength = key.length();
+
+	for (int i = 0; i < cipherLength; ++i) {
+		char currentChar = cipher[i];
+		char keyChar = key[i % keyLength]; // Repeating key characters
+
+		// Check if the character is alphabetic
+		if (isalpha(currentChar)) {
+			// Decrypt uppercase letters
+			if (isupper(currentChar)) {
+				char decryptedChar = (currentChar - keyChar + 26) % 26 + 'A';
+				decryptedMessage += decryptedChar;
+			}
+			// Keep non-alphabetic characters unchanged
+			else {
+				decryptedMessage += currentChar;
+			}
+		}
+
+		return decryptedMessage;
+	}
+}
+
+int main()
+{
+	string message, key, encryption;
+
+	int choice;
+
+	cout << "Vignere Cipher" << endl;
+
+	do
+	{
+		cout << "\nThis porgram encypts and decrpyts messages using a key," << endl;
+		cout << "Select what you would like to do from the following list:" << endl;
+		cout << "1. Encypt Message" << endl;
+		cout << "2. Decypt message" << endl;
+		cout << "3. Exit" << endl; 
+	
+		cin >> choice;
+	
+		switch (choice)
+		{
+		case 1:
+		{
+			cout << "Enter your message: " << endl;
+			cin >> message;
+			cout << "\nEnter key" << endl;
+			cin >> key;
+			string encrypytedMessage = encryptVigenere(message,key);
+			cout << "\nEncrytped Message " << encrypytedMessage;
+			
+			break;
+		}
+		case 2:
+		{
+			cout << "Enter the encryption: ";
+			cin >> encryption; 
+
+			cout << "Enter the key: ";
+			cin >> key; 
+
+			string decryptedMessage = decryptVigenere(encryption, key);
+
+			cout << "Decrypted message: " << decryptedMessage << endl;
+			break;
+		}
+		case 3:
+		{
+			cout << "Thank you for using Vignere Cipher " << endl;
+			return 0;
+		}
+		}
+	} while (choice != 3); 
+
+	return 0;
+}
