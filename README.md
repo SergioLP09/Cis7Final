@@ -1,4 +1,4 @@
-# Cis7Final
+# Cis7Final <br />
 Cis7 final project: Vigenere Cipher <br />
 This project consists of a program that encyrpts and decrypts using a key. <br />
 To use this program, simply runit , and it will prompt you to input a menu choice. <br />
